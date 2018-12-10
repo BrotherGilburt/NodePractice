@@ -1,12 +1,19 @@
-# How to use
+# Expenses Console App
+
+
+## How to use
+
+The following command can be used to run the app.
 
 ```
 node expenses <inputfile>
+```
+**<inputfile>** must be .csv format. The output will be written to **results.txt**.
 
-//sample.csv is provided as an example
+## Sample input
 
+sample.csv is provided to run the app without creating an input file.
+
+```
 node expenses sample.csv
 ```
-input file must be .csv format
-
-output file will be results.txt
