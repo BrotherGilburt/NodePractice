@@ -4,5 +4,5 @@ This is a project that will eventually contain multiple small apps that I am dev
 
 ## Apps
 
-* **ConsoleApp/expenses.js** This is a console app that reads data from a file and prints output to another file.
+* **ConsoleApp** This is a console app that reads data from a file and prints output to another file. To run: `node ConsoleApp <inputfile>`
 * ...More to come.
