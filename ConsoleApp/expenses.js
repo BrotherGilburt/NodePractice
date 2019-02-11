@@ -1,4 +1,4 @@
-export default class Expenses {
+class Expenses {
   constructor() {
     this._expenses = []
   }
@@ -7,8 +7,30 @@ export default class Expenses {
     this._expenses.push({category, amount, date})
   }
   calculate(operations = ['average', 'max', 'min', 'total'], group) {
-    //TODO: if group...
+    if (!group) return this._calculate(operations, this._expenses)
+    
+    let groups = {}
 
+    switch (group) {
+      case 'months':
+        groups = this.groupByMonth()
+        break;
+      case 'year':
+        groups = this.groupByYear()
+        break;
+      default:
+        groups = this.groupByColumn(group)
+    }
+
+    const results = {}
+
+    Object.entries(groups).forEach(([row, expenses]) => {
+      results[row] = this._calculate(operations, expenses)
+    })
+
+    return results
+  }
+  _calculate(operations, expenses) {
     const results = {}
 
     //initialize
@@ -19,23 +41,24 @@ export default class Expenses {
     })
 
     //forEach
-    this._expenses.forEach(({amount}) => {
-      operations.forEach(op)
-      if (!statistics[op]) return
+    expenses.forEach(({amount}) => {
+      operations.forEach(op => {
+        if (!statistics[op]) return
       
-      results[op] = statistics[op].forEach(amount, results[op])
+        results[op] = statistics[op].forEach(amount, results[op])
+      })
     })
 
     //after
     operations.forEach(op => {
       if (!statistics[op]) return
 
-      if (statistics[op].after) results[op] = statistics[op].after(results[op], this._expenses)
+      if (statistics[op].after) results[op] = statistics[op].after(results[op], expenses)
     })
 
     return results
   }
-  groupBy(grouper) {
+  _groupBy(grouper) {
     const groups = {}
     this._expenses.forEach((el) => {
       const name = grouper(el)
@@ -43,6 +66,15 @@ export default class Expenses {
       else groups[name].push(el)
     })
     return groups
+  }
+  groupByColumn(name) {
+    return this._groupBy(row => row[name])
+  }
+  groupByMonth() {
+    return this._groupBy(row => `${row.date.getYear()}/${row.date.getMonth()+1}`)
+  }
+  groupByYear() {
+    return this._groupBy(row => `${row.date.getYear()}`)
   }
 }
 
@@ -89,3 +121,5 @@ const statistics = {
     }
   }
 }
+
+module.exports = Expenses

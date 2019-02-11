@@ -1,3 +1,5 @@
+const Expenses = require('./Expenses.js')
+
 const {readFile, writeFile} = require('fs');
 const {extname} = require('path')
 
@@ -45,7 +47,9 @@ function parseExpenses(text) {
   if (!key.filter(el => dollarColRE.test(el)).length == 1) throw new Error(`must have one column labeled [${DOLLAR_COL}]`)
   if (!key.filter(el => categoryColRE.test(el)).length == 1) throw new Error(`must have one column labeled [${CATEGORY_COL}]`)
   
-  return rows.map((el, rowNum) => {
+  const expenses = new Expenses()
+  
+  rows.map((el, rowNum) => {
     const row = Object.create(null)
     const columns = el.split(',')
 
@@ -72,28 +76,21 @@ function parseExpenses(text) {
     })
     
     return row
-  })
+  }).forEach(el => expenses.addRow(el))
+
+  return expenses
 }
 
-function processResults(data) {
-  const results = Object.create(null)
-  results.categories = Object.create(null)
-  results.total = 0
-
-  data.forEach(el => {
-    if (!results.categories[el.category]) results.categories[el.category] = 0
-    results.categories[el.category] += el.amount
-    results.total += el.amount
-  })
-  results.average = results.total / data.length
-  
+function processResults(expenses) {
+  const results = expenses.calculate()
+  results.category = expenses.calculate(['total'], 'category')
   return results
 }
 
 function formatResults(results) {
-  const categories = Object.entries(results.categories)
+  const categories = Object.entries(results.category)
     .sort()
-    .map(el => `${el[0]}: $${el[1].toFixed(2)}`)
+    .map(([name, data]) => `${name}: $${data.total.toFixed(2)}`)
 
   return [
     'EXPENSES PER CATEGORY',
@@ -103,7 +100,9 @@ function formatResults(results) {
     'META',
     '------',
     `average: $${results.average.toFixed(2)}`,
-    `total: $${results.total.toFixed(2)}`  
+    `total: $${results.total.toFixed(2)}`,
+    `max: $${results.max.toFixed(2)}`,
+    `min: $${results.min.toFixed(2)}`
   ]
 }
 
