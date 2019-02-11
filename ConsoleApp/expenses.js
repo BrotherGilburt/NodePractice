@@ -96,7 +96,7 @@ const statistics = {
     }
   },
   min: {
-    init: 999999999999999,
+    init: Number.MAX_SAFE_INTEGER,
     forEach(value, accumulator) {
       if (!accumulator) return value
       return value < accumulator ? value : accumulator
