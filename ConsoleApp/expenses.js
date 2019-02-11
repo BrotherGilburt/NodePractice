@@ -2,34 +2,6 @@ class Expenses {
   constructor() {
     this._expenses = []
   }
-  addRow(data) {
-    const {category, amount, date} = data
-    this._expenses.push({category, amount, date})
-  }
-  calculate(operations = ['average', 'max', 'min', 'total'], group) {
-    if (!group) return this._calculate(operations, this._expenses)
-    
-    let groups = {}
-
-    switch (group) {
-      case 'months':
-        groups = this.groupByMonth()
-        break;
-      case 'year':
-        groups = this.groupByYear()
-        break;
-      default:
-        groups = this.groupByColumn(group)
-    }
-
-    const results = {}
-
-    Object.entries(groups).forEach(([row, expenses]) => {
-      results[row] = this._calculate(operations, expenses)
-    })
-
-    return results
-  }
   _calculate(operations, expenses) {
     const results = {}
 
@@ -66,6 +38,37 @@ class Expenses {
       else groups[name].push(el)
     })
     return groups
+  }
+  addRow(data) {
+    const {category, amount, date} = data
+    this._expenses.push({category, amount, date})
+  }
+  calculate(operations = ['average', 'max', 'min', 'total'], group) {
+    if (!group) return this._calculate(operations, this._expenses)
+    
+    let groups = {}
+
+    switch (group) {
+      case 'months':
+        groups = this.groupByMonth()
+        break;
+      case 'year':
+        groups = this.groupByYear()
+        break;
+      default:
+        groups = this.groupByColumn(group)
+    }
+
+    const results = {}
+
+    Object.entries(groups).forEach(([row, expenses]) => {
+      results[row] = this._calculate(operations, expenses)
+    })
+
+    return results
+  }
+  getExpenses() {
+    return this._expenses
   }
   groupByColumn(name) {
     return this._groupBy(row => row[name])
