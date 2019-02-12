@@ -117,9 +117,9 @@ if (extname(process.argv[2]) != '.csv') {
 }
 
 readFromFile(process.argv[2])
-  .then(value => parseExpenses(value))
-  .then(value => processResults(value))
-  .then(value => formatResults(value))
+  .then(parseExpenses)
+  .then(processResults)
+  .then(formatResults)
   .then(value => writeLinesToFile(OUTPUT_FILENAME, value))
   .then(({filename}) => console.log(`results written to ${filename}`))
   .catch(error => console.log(error.message))
