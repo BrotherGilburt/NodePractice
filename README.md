@@ -4,6 +4,6 @@ This is a project that will eventually contain multiple small apps that I am dev
 
 ## Apps
 
-* **ConsoleApp**: this is a console app that reads data from a file and prints output to another file. To run: `node ConsoleApp <inputfile>`
+* **ExpenseCalc**: this is a console app that reads data from a file and prints output to another file. To run: `node ExpenseCalc <inputfile>`
   * Sample input file: expenses.csv
 * ...More to come.
