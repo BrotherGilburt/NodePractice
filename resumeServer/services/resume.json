@@ -1,0 +1,36 @@
+{
+  "Education": [
+    {
+      "Degree": "Bachelor's in Computer Science",
+      "Graduation Date": "August 2018",
+      "GPA": 3.75,
+      "University": "Illinois State University"
+    },
+    {
+      "Degree": "Associate in Science",
+      "Graduation Date": "May 2012",
+      "GPA": 3.80,
+      "University": "Heartland Community College"
+    }
+  ],
+  "Experience": [
+    {
+      "Description": "",
+      "Employer": "Normal Public Library",
+      "Position": "Library Assistant",
+      "Start Date":"2009-05"
+    },
+    {
+      "Description": "",
+      "Employer": "Illinois State University",
+      "End Date": "2018-05",
+      "Position": "Student Office Assistant",
+      "Start Date": "2017-01"
+    }
+  ],
+  "Knowledge and Skills": [
+    {
+      
+    }
+  ]
+}
