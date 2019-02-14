@@ -15,22 +15,34 @@
   ],
   "Experience": [
     {
-      "Description": "",
+      "Description": [
+        "Processed and shelved items in the library collection",
+        "Provided quality customer service to the public in person and over the phone",
+        "Developed a staff manual to document procedures and protocols",
+        "Assisted in training new employees"
+      ],
       "Employer": "Normal Public Library",
+      "End Date": "Current",
       "Position": "Library Assistant",
-      "Start Date":"2009-05"
+      "Start Date":"June 2009"
     },
     {
-      "Description": "",
+      "Description": [
+        "Graded assignments for Dr. Kyoungwon Suh’s computer architecture course"
+      ],
       "Employer": "Illinois State University",
-      "End Date": "2018-05",
+      "End Date": "May 2018",
       "Position": "Student Office Assistant",
-      "Start Date": "2017-01"
+      "Start Date": "January 2017"
     }
   ],
-  "Knowledge and Skills": [
-    {
-      
-    }
-  ]
+  "Knowledge and Skills": {
+    "Database": ["SQL", "Firebase"],
+    "Frameworks/Libraries": ["Vue.js", "React.js", "Node.js", "jQuery", ".NET"],
+    "Languages":["JavaScript", "Java", "C#", "PHP"],
+    "Styling": ["CSS", "SASS", "Stylus"],
+    "Testing": ["Browser Dev Tools", "Jasmine", "JUnit"],
+    "Tools": ["Git", "NPM", "Webpack", "Regex"],
+    "Other": ["HTTP", "REST", "JSON", "XML"]
+  }
 }
