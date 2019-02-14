@@ -50,7 +50,7 @@ methods.GET = async function(request) {
   }
 
 async function processGetRequest(url) {
-  const service = api[url] 
-  if (!service) return null
-  else return service.get()
+  const endpoint = api[url] 
+  if (!endpoint) return null
+  else return endpoint.get()
 }
