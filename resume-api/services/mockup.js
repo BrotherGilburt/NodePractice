@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const RESUME_FILE = 'resumeServer/services/resume.json'
+const RESUME_FILE = 'resume-api/services/resume.json'
 
 async function readResumeFile() {
   return new Promise((resolve, reject)=> {
@@ -34,8 +34,16 @@ async function getEducation() {
 }
 
 module.exports = {
-  getResume,
-  getExperience,
-  getKnowledgeAndSkills,
-  getEducation
+  '/': {
+    get: getResume
+  },
+  '/experience': {
+    get: getExperience
+  },
+  '/knowledgeandskills': {
+    get: getKnowledgeAndSkills
+  },
+  '/education': {
+    get: getEducation
+  }
 }

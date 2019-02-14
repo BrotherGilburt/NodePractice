@@ -1,8 +1,10 @@
 const {createServer} = require('http')
 const api = require('./services/mockup.js')
 
+const methods = Object.create(null)
+
 let server = createServer((request, response) => {
-  const handler = handlers[request.method] || notAllowed
+  const handler = methods[request.method] || notAllowed
 
   handler(request)
     .catch(error => {
@@ -34,26 +36,21 @@ async function notFound(request) {
   }
 }
 
-const handlers = {
-  async GET(request) {
-    let data
-    try {
-      //disclaimer: (obviously) not designed to handle parameters
-      data = await getAPI[request.url]()
-    } catch (error) {
-      return notFound(request)
-    }
+
+methods.GET = async function(request) {
+    const data = await processGetRequest(request.url)
+
+    if (!data) return notFound(request)
+
     return {
       status: 200,
       type: 'application/json',
       body: JSON.stringify(data)
     }
   }
-}
 
-const getAPI = {
-  '/': api.getResume,
-  '/education': api.getEducation,
-  '/experience': api.getExperience,
-  '/knowledgeandskills': api.getKnowledgeAndSkills
+async function processGetRequest(url) {
+  const service = api[url] 
+  if (!service) return null
+  else return service.get()
 }
