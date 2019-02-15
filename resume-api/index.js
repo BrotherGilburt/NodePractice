@@ -15,10 +15,11 @@ let server = createServer((request, response) => {
       response.writeHead(status, {'Content-Type': type})
       response.write(body)
       response.end()
+      logResponse(request.method, request.url, status)
     })
 })
 server.listen(8000)
-console.log('Server running: http://localhost:8000/')
+console.log('resume-api running: http://localhost:8000/')
 
 async function notAllowed(request) {
   return {
@@ -36,6 +37,9 @@ async function notFound(request) {
   }
 }
 
+function logResponse(method, url, status) {
+  console.log(`${method} Response: ${url} ${status}`)
+}
 
 methods.GET = async function(request) {
     const data = await processGetRequest(request.url)
